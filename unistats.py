@@ -164,6 +164,7 @@ st.plotly_chart(fig)
 
 # Bubble chart
 st.header("Prioritization matrix")
+st.write('Bubble size = Potential sales per month for Unistellar')
 bubbles['Labels'] = bubbles['Topic'] + ' | Est. sales: ' + bubbles['Sales per year'].astype(int).astype(str)
 fig = go.Figure(data=[go.Scatter(
     x=bubbles['Queries per month'],
