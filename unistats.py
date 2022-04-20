@@ -23,6 +23,8 @@ data['Feb 2022'] = data['Feb 2022'].fillna(0).astype(int, errors='ignore')
 data['Volume'] = data['Volume'].fillna(0).astype(int, errors='ignore')
 data = data.sort_values(by = 'Feb 2022', ascending= False)
 
+bubbles = pd.read_csv("bubbles.csv")
+
 #### SIDEBAR ###
 
 with st.sidebar:
