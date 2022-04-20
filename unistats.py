@@ -177,8 +177,8 @@ fig = go.Figure(data=[go.Scatter(
 
 )])
 fig.update_layout(
-    height=1000,
-    width=750,
+    height=750,
+    width=1000,
     plot_bgcolor="#0c0c0e",
     xaxis=dict(title='Number of queries per month'),
     yaxis=dict(title='Conversion rate'),
