@@ -171,7 +171,7 @@ fig = go.Figure(data=[go.Scatter(
     mode='markers',
     marker=dict(
         color=bubbles['Sales per year']/10,
-        size=bubbles['Sales per year']/10,
+        size=bubbles['Sales per year']/2,
     ),
     text=bubbles['Labels'],
 
