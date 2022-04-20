@@ -159,3 +159,26 @@ fig.update_layout(xaxis=dict(showgrid=False),#True,gridcolor='red'),
               height=500,
 )
 st.plotly_chart(fig)
+
+# Bubble chart
+st.header("Prioritization matrix")
+bubbles['Labels'] = bubbles['Topic'] + ' | Est. sales: ' + bubbles['Sales per year'].astype(int).astype(str)
+fig = go.Figure(data=[go.Scatter(
+    x=bubbles['Queries per month'],
+    y=bubbles['Conversion rate'],
+    mode='markers',
+    marker=dict(
+        color=bubbles['Sales per year']/10,
+        size=bubbles['Sales per year']/10,
+    ),
+    text=bubbles['Labels'],
+
+)])
+fig.update_layout(
+    height=1000,
+    width=1000,
+    plot_bgcolor="#0c0c0e",
+    xaxis=dict(title='Number of queries per month'),
+    yaxis=dict(title='Conversion rate'),
+    )
+st.plotly_chart(fig)
