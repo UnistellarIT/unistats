@@ -1,11 +1,11 @@
-Topic,Queries per month,Conversion rate,Sales per year,CTR
-Planets / moon / sun,1100000,0.005%,132,20%
-Observable objects,1000000,0.005%,120,20%
-Space,620000,0.005%,74,20%
-Places,165000,0.005%,20,20%
-Astronomy,150000,0.005%,18,20%
-Telescopes,46000,0.04%,44,20%
-High-end brands,80000,0.10%,192,20%
-Resellers,80000,0.15%,288,20%
-Buy telescope,25000,0.15%,90,20%
-Unistellar,5000,0.20%,96,80%
+Topic,Queries per month,Conversion rate,Sales per year,CTR,Definition
+Planets / moon / sun,1300000,0.005%,156,20%,"Mostly generic queries about planets, moon, sun, solar system, "
+Observable objects,800000,0.005%,96,20%,"Unistellar has more legitimacy: constellations, stars, galaxies, nebulas, eclipses, comets, black holes, milky way, asteroids, messier, star clusters"
+Space,620000,0.005%,74,20%,"Astronauts, organizations (nasa, spacex...), giant telescopes, space telescopes, space stations... "
+Places,165000,0.005%,20,20%,"Cite de l'espace mainly, and also planetariums"
+Astronomy,150000,0.005%,18,20%,"Ephemeris mainly, and also astrophotography, and astronomie"
+Telescopes,46000,0.04%,44,20%,Telescope generic and types of telescopes
+High-end brands,80000,0.10%,192,20%,Classification to be confirmed
+Resellers,80000,0.15%,288,20%,Classification to be confirmed
+Buy telescope,25000,0.15%,90,20%,"Buy telescope, price of telescope, chose telescope..."
+Unistellar,5000,0.20%,96,80%,"Unistellar, Evscope"
