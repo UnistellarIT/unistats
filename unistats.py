@@ -186,4 +186,4 @@ fig.update_layout(
     )
 st.plotly_chart(fig)
 
-bubbles[['Topic','Queries per month','CTR','Conversion rate','Sales per year',]]
+bubbles[['Topic','Queries per month','CTR','Conversion rate','Sales per year','Definition']]
