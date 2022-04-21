@@ -185,3 +185,5 @@ fig.update_layout(
     yaxis=dict(title='Conversion rate'),
     )
 st.plotly_chart(fig)
+
+bubbles[['Topic','Queries per month','CTR','Conversion rate','Sales per year',]]
