@@ -18,10 +18,15 @@ st.title("ONLINE DEMAND ANALYSIS")
 
 #### LOAD DATA ###
 
-data = pd.read_csv("data.csv")
-data['Feb 2022'] = data['Feb 2022'].fillna(0).astype(int, errors='ignore')
-data['Volume'] = data['Volume'].fillna(0).astype(int, errors='ignore')
-data = data.sort_values(by = 'Feb 2022', ascending= False)
+data_fr = pd.read_csv("data_fr.csv")
+data_fr['Feb 2022'] = data_fr['Feb 2022'].fillna(0).astype(int, errors='ignore')
+data_fr['Volume'] = data_fr['Volume'].fillna(0).astype(int, errors='ignore')
+data_fr = data_fr.sort_values(by = 'Feb 2022', ascending= False)
+
+data_us = pd.read_csv("data_us.csv")
+data_us['Feb 2022'] = data_us['Feb 2022'].fillna(0).astype(int, errors='ignore')
+data_us['Volume'] = data_us['Volume'].fillna(0).astype(int, errors='ignore')
+data_us = data_us.sort_values(by = 'Feb 2022', ascending= False)
 
 bubbles = pd.read_csv("bubbles.csv")
 
@@ -35,6 +40,11 @@ with st.sidebar:
         "United States"
         )
     )
+
+    if country == "France":
+        data = data_fr
+    if country == "United States":
+        data = data_us
 
     lvl = st.radio(
         label = 'Level of analysis',
