@@ -28,7 +28,10 @@ data_us['Feb 2022'] = data_us['Feb 2022'].fillna(0).astype(int, errors='ignore')
 data_us['Volume'] = data_us['Volume'].fillna(0).astype(int, errors='ignore')
 data_us = data_us.sort_values(by = 'Feb 2022', ascending= False)
 
-bubbles = pd.read_csv("bubbles.csv")
+bubbles_fr = pd.read_csv("bubbles.csv")
+bubbles_fr = bubbles_fr[bubbles_fr['Country']=='France']
+bubbles_us = pd.read_csv("bubbles.csv")
+bubbles_us = bubbles_us[bubbles_us['Country']=='United States']
 
 #### SIDEBAR ###
 
@@ -36,16 +39,20 @@ with st.sidebar:
 
     country = st.radio(
         label = 'Countries',
-        options = ("France",
-        "United States"
+        options = ("United States","France"
+
         )
     )
 
     if country == "France":
         data = data_fr
+        bubbles = bubbles_fr
+        size_factor = 2
     if country == "United States":
         data = data_us
-
+        bubbles = bubbles_us
+        size_factor = 5
+        
     lvl = st.radio(
         label = 'Level of analysis',
         options = (
@@ -182,7 +189,7 @@ fig = go.Figure(data=[go.Scatter(
     mode='markers',
     marker=dict(
         color=bubbles['Sales per year']/10,
-        size=bubbles['Sales per year']/2,
+        size=bubbles['Sales per year']/size_factor,
     ),
     text=bubbles['Labels'],
 
