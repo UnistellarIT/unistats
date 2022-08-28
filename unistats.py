@@ -9,6 +9,7 @@ from plotly.subplots import make_subplots
 import plotly.express as px
 from PIL import Image
 from st_aggrid import AgGrid,GridOptionsBuilder
+from datetime import datetime
 
 st.set_page_config(layout="wide")
 
@@ -91,21 +92,29 @@ with st.sidebar:
 
     height = st.slider('Chart size', 500, 2000, 500)
 
+start_date1, end_date1 = st.date_input(label="Timeframe",value=[datetime.strptime('2022-02-01', '%Y-%m-%d').date(),datetime.strptime('2022-02-01', '%Y-%m-%d').date()])
+start_date_string1 = start_date1.strftime("%b %Y")
+end_date_string1 = end_date1.strftime("%b %Y")
+if start_date_string1 == end_date_string1:
+    title_string = 'in '+start_date_string1
+else:
+    title_string = 'between '+start_date_string1+' and '+end_date_string1
+data['Volume'] = data.loc[:,start_date_string1:end_date_string1].sum(axis=1)
 
 col1, col2 = st.columns(2)
 
 # Intentions
-
-level0 = pd.DataFrame(data.groupby(['Intentions']).sum()['Feb 2022']).sort_values(by=['Feb 2022'], ascending = True).reset_index()
+d = data.groupby(['Intentions'])['Volume'].sum()
+level0 = pd.DataFrame(data.groupby(['Intentions'])['Volume'].sum()).sort_values(by=["Volume"], ascending = True).reset_index()
 fig = go.Figure(go.Bar(
     y=level0["Intentions"],
-    x=level0["Feb 2022"],
+    x=level0["Volume"],
     marker_color='#feb82b',
     marker_line_color='rgba(0, 0, 0, 0)',
     orientation='h'))
 fig.update_layout(
     height=500,
-    title='Demand for top categories in Jan 2022',
+    title='Demand for top categories '+title_string,
     plot_bgcolor="#0c0c0e",
     )
 
@@ -117,16 +126,16 @@ data = data[data.Intentions.isin(intentions_options)]
 
 # Topics
 
-level1 = pd.DataFrame(data.groupby(['subintention']).sum()['Feb 2022']).sort_values(by=['Feb 2022'], ascending = True).reset_index()
+level1 = pd.DataFrame(data.groupby(['subintention'])["Volume"].sum()).sort_values(by=["Volume"], ascending = True).reset_index()
 fig = go.Figure(go.Bar(
     y=level1["subintention"],
-    x=level1["Feb 2022"],
+    x=level1["Volume"],
     marker_color='#feb82b',
     marker_line_color='rgba(0, 0, 0, 0)',
     orientation='h'))
 fig.update_layout(
     height=height,
-    title='Demand for top categories in Jan 2022',
+    title='Demand for top categories '+title_string,
     plot_bgcolor="#0c0c0e",
     )
 
@@ -147,7 +156,7 @@ AgGrid(data[data.subintention.isin(subintention_options)], theme='dark', gridOpt
 st.header("Evolutions")
 #topic_options = st.multiselect('Topics',data.Topics.unique(),['planets','telescopes','high-end brands'],key='2')
 evol = data.groupby('subintention').sum()
-evol = evol.loc[:,'Mar 2018':'Feb 2022'].transpose().reset_index()
+evol = evol.loc[:,'May 2018':'Feb 2022'].transpose().reset_index()
 change = ((evol.loc[evol['index'].str.contains('2021'),subintention_options].sum()/evol.loc[evol['index'].str.contains('2020'),subintention_options].sum()-1))
 change =pd.DataFrame(change)
 change.columns = ['change']
@@ -160,8 +169,12 @@ for col in st.columns(len(subintention_options)):
     col.metric(label=change.index[i], value=f'{val2021.values[i]:,}', delta=f'{change.change[i]:.1%}')
     i+=1
 
+start_date, end_date = st.date_input(label="Timeframe",value=[datetime.strptime('2018-05-01', '%Y-%m-%d').date(),datetime.strptime('2022-02-01', '%Y-%m-%d').date()])
+start_date_string = start_date.strftime("%b %Y")
+end_date_string = end_date.strftime("%b %Y")
+
 fig = px.line(
-    evol,
+    evol.set_index('index')[start_date_string:end_date_string].reset_index(),
     x="index",
     y=subintention_options,
     color_discrete_sequence=px.colors.qualitative.Dark24,
@@ -180,6 +193,7 @@ fig.update_layout(xaxis=dict(showgrid=False),#True,gridcolor='red'),
               height=500,
 )
 st.plotly_chart(fig)
+
 
 # Bubble chart
 st.header("Prioritization matrix")
